@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "zRO0uLuLAOpPYsi/gpQcqoBZftUwPN5oKKbqeNIj+MY=",
+  "Source": "PocSignalrApi",
+  "BasePath": "_content/PocSignalrApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
