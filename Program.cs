@@ -1,5 +1,5 @@
 using PocSignalrApi.Hubs;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,10 @@ builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ChatHub, ChatHub>();
+// builder.Services.AddTransient<IMemoryCache, MemoryCache>();
+builder.Services.AddSingleton<MemoryCache>();
 
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
