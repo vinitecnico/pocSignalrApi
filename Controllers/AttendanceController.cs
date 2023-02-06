@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using PocSignalrApi.Hubs;
 
 namespace PocSignalrApi.Controllers;
 
@@ -7,19 +9,21 @@ namespace PocSignalrApi.Controllers;
 public class AttendanceController : ControllerBase
 {
     private readonly ILogger<AttendanceController> _logger;
+    private readonly IHubContext<ChatHub> _hubContext;
 
-    public AttendanceController(ILogger<AttendanceController> logger)
+    public AttendanceController(ILogger<AttendanceController> logger, IHubContext<ChatHub> hubContext)
     {
         _logger = logger;
+        _hubContext = hubContext;
     }
 
-    [HttpGet(Name = "GetAttendance")]
+    [HttpGet("GetAttendance")]
     public string Get()
     {
         return Guid.NewGuid().ToString();
     }
 
-    [HttpDelete(Name = "removeAttendance")]
+    [HttpDelete("removeAttendance")]
     public IActionResult Delete()
     {
         // if (todoItem == null)
@@ -28,5 +32,13 @@ public class AttendanceController : ControllerBase
         // }
 
         return NoContent();
+    }
+
+    [HttpPost("message")]
+    public async Task<IActionResult> SendMessage([FromBody] string message)
+    {
+        // await _chatHub.s
+        await _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+        return Ok();
     }
 }
